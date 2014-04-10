@@ -1,11 +1,13 @@
 package;
 
+import flixel.addons.effects.FlxRGBShiftSprite;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
+using flixel.util.FlxSpriteUtil;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -17,6 +19,12 @@ class PlayState extends FlxState
 	 */
 	override public function create():Void
 	{
+		var target:FlxSprite = new FlxSprite(0, 0, "assets/images/HaxeFlixel.png");
+		target.screenCenter();
+		
+		var rgbshift:FlxRGBShiftSprite = new FlxRGBShiftSprite(target);
+		add(rgbshift);
+		
 		super.create();
 	}
 	
