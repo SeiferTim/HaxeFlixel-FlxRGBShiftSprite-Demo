@@ -1,12 +1,17 @@
 package;
 
+import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.effects.FlxRGBShiftSprite;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
+import flixel.util.FlxRandom;
+import flixel.util.FlxTimer;
 using flixel.util.FlxSpriteUtil;
 
 /**
@@ -14,18 +19,36 @@ using flixel.util.FlxSpriteUtil;
  */
 class PlayState extends FlxState
 {
+	private var _rgbshift:FlxRGBShiftSprite;
+	
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
 	override public function create():Void
 	{
+		add(FlxGridOverlay.create(30, 30, -1, -1, false, true, 0xff111111, 0xff333333));
+		
 		var target:FlxSprite = new FlxSprite(0, 0, "assets/images/HaxeFlixel.png");
 		target.screenCenter();
 		
-		var rgbshift:FlxRGBShiftSprite = new FlxRGBShiftSprite(target);
-		add(rgbshift);
+		_rgbshift = new FlxRGBShiftSprite(target);
+		add(_rgbshift);
+		
+		FlxTween.num(0, 20, 5, { type:FlxTween.PINGPONG }, twnStrength);
+		FlxTween.num(0, 359, 6, { type:FlxTween.LOOPING }, twnDirection);
 		
 		super.create();
+		
+	}
+	
+	private function twnStrength(Value:Float):Void
+	{
+		_rgbshift.strength = Std.int(Value);
+	}
+	
+	private function twnDirection(Value:Float):Void
+	{
+		_rgbshift.direction = Value;
 	}
 	
 	/**
@@ -42,6 +65,7 @@ class PlayState extends FlxState
 	 */
 	override public function update():Void
 	{
+		
 		super.update();
 	}	
 }
